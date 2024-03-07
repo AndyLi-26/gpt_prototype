@@ -1,0 +1,5 @@
+./ignore/*
+ignore/*
+./ignore/*/*
+./front/node_modules/*
+./front/node_modules/*/*
