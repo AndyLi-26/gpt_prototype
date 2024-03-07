@@ -8,8 +8,8 @@ const app = express()
 const port = 80;
 
 //const file=fs.readFileSync('./B254E8E54A7E5A04E79256C8C06E65C9.txt')
-const key=fs.readFileSync('./private.key')
-const cert=fs.readFileSync('./certificate.crt')
+const key=fs.readFileSync('../ignore/52.62.211.180/private.key')
+const cert=fs.readFileSync('../ignore/52.62.211.180/certificate.crt')
 
 //app.use(cors())
 
