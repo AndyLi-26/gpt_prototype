@@ -89,11 +89,13 @@ function getSupportedMimeTypes() {
 */
 
 function handlerFunc(stream){
-    rec = new MediaRecorder (stream) ;
+    const mimeType='audio/webm';
+    const options={mimeType};
+    rec = new MediaRecorder (stream,options) ;
     rec.ondataavailable = e =>{
         audioChunks.push (e.data);
         if (rec.state == "inactive"){
-            let blob = new Blob(audioChunks, {type: 'audio/mpeg-3'}) ;
+            let blob = new Blob(audioChunks, {type: 'audio/webm'}) ;
             recordedAudio.src = URL.createObjectURL (blob);
             recordedAudio.controls=true; recordedAudio.autoplay=true;
             sendAudio(blob);
@@ -103,15 +105,33 @@ function handlerFunc(stream){
 }
 
 function sendAudio(blob) {
-    const formData = new FormData();
-    formData.append('audio', blob);
+    blob=blob[0];
+    //const formData = new FormData();
+    //formData.append('audio', blob);
+    //console.log('sending',formData);
+    console.log('sent blob',blob);
+    console.log(blob.size);
 
-    fetch('http://13.210.202.254:5001/upload-audio', {
+    const header = new Headers();
+    header.append('Content-Type', 'audio/webm');
+    const contentLength = blob.size;
+    header.append('Content-Length', contentLength.toString());
+
+
+    fetch('/upload-audio', {
+        headers: header,
         method: 'POST',
-        body: formData
+        body: blob,
     })
         .then(response => {
             console.log('Audio sent successfully');
+            console.log(response);
+            return response.json();
+        })
+    .then(data=>{
+            console.log(data);
+            document.getElementById("dictated").value=data.dictated;
+            document.getElementById("generated").value=data.summary;
         })
         .catch(error => {
             console.error('Error sending audio: ', error);
@@ -120,6 +140,7 @@ function sendAudio(blob) {
 
 async function startRecording() {
     recordedBlobs = [];
+
     navigator.mediaDevices.getUserMedia({audio:
         {
             echoCancellation: {exact: true}
