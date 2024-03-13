@@ -80,7 +80,6 @@ code {
 
 div#container {
   margin: 0 auto 0 auto;
-  max-width: 60em;
   padding: 1em 1.5em 1.3em 1.5em;
 }
 
@@ -222,11 +221,15 @@ strong {
 textarea {
   resize: none;
   font-family: 'Roboto', sans-serif;
+  width: 100%;
+  border-radius: 0.5rem;
+  min-height: 20vh;
+  margin: 3px;
 }
 
 video {
   background: #222;
-  margin: 0 0 20px 0;
+  margin: 0 0 0 0;
   --width: 100%;
   width: var(--width);
   height: calc(var(--width) * 0.75);
@@ -297,15 +300,35 @@ p.borderBelow {
 
 video {
   vertical-align: top;
-  --width: 25vw;
-  width: var(--width);
-  height: calc(var(--width) * 0.5625);
+  width: 100%;
+  height: auto;
 }
 
 video:last-of-type {
-  margin: 0 0 20px 0;
+  margin: 0 0 0 0;
 }
 
 video#gumVideo {
-  margin: 0 20px 20px 0;
+  margin: 0 0 0 0;
+}
+
+.section {
+    display: inline
+}
+
+
+.right {
+    margin-inline: 1.5rem;
+    width: 50%;
+}
+
+#record {
+    display: flex;
+    margin:auto;
+    width: auto;
+    text-align: center;
+    align-item: center;
+    font-size: x-large;
+    padding: 1rem;
+    border-radius: 0.5rem;
 }

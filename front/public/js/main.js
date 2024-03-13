@@ -32,12 +32,11 @@ recordButton.addEventListener('click', () => {
     } else {
         stopRecording();
         recordButton.textContent = 'Start Recording';
-        playButton.disabled = false;
-        downloadButton.disabled = false;
         //codecPreferences.disabled = false;
     }
 });
 
+/*
 const playButton = document.querySelector('button#play');
 playButton.addEventListener('click', () => {
     const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value.split(';', 1)[0];
@@ -65,7 +64,7 @@ downloadButton.addEventListener('click', () => {
         window.URL.revokeObjectURL(url);
     }, 100);
 });
-
+*/
 function handleDataAvailable(event) {
     console.log('handleDataAvailable', event);
     if (event.data && event.data.size > 0) {
@@ -111,11 +110,14 @@ function sendAudio(blob) {
     //console.log('sending',formData);
     console.log('sent blob',blob);
     console.log(blob.size);
+    document.getElementById("dictated").value="Finished dictating.";
+    document.getElementById("generated").value="Generating Summary...";
+    document.getElementById("record").disabled=true;
 
     const header = new Headers();
     header.append('Content-Type', 'audio/webm');
-    const contentLength = blob.size;
-    header.append('Content-Length', contentLength.toString());
+    //const contentLength = blob.size;
+    //header.append('Content-Length', contentLength.toString());
 
 
     fetch('/upload-audio', {
@@ -132,6 +134,7 @@ function sendAudio(blob) {
             console.log(data);
             document.getElementById("dictated").value=data.dictated;
             document.getElementById("generated").value=data.summary;
+        document.getElementById("record").disabled=false;
         })
         .catch(error => {
             console.error('Error sending audio: ', error);
@@ -140,6 +143,7 @@ function sendAudio(blob) {
 
 async function startRecording() {
     recordedBlobs = [];
+    document.getElementById("dictated").value="Dictating.....";
 
     navigator.mediaDevices.getUserMedia({audio:
         {
@@ -174,8 +178,6 @@ async function startRecording() {
 
         //console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
     recordButton.textContent = 'Stop Recording';
-    playButton.disabled = true;
-    downloadButton.disabled = true;
     //codecPreferences.disabled = true;
     rec.onstop = (event) => {
         console.log('Recorder stopped: ', event);

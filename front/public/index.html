@@ -30,47 +30,46 @@
 
 <body>
 
-<div id="container">
+    <div id="container">
 
-    <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a>
-        <span>MediaRecorder</span></h1>
+        <h1>Gen AI Consultation Summary Demo</h1>
 
-    <p>For more information see the MediaStream Recording API <a
+        <!--
+            <p>For more information see the MediaStream Recording API <a
             href="http://w3c.github.io/mediacapture-record/MediaRecorder.html"
             title="W3C MediaStream Recording API Editor's Draft">Editor's&nbsp;Draft</a>.</p>
+        -->
 
-    <video id="gum" playsinline autoplay muted></video>
+        <div style="display: flex;">
+            <div class="section" style="width: 50%">
+                <video id="gum" playsinline autoplay muted></video>
+            </div>
+            <div class="section right">
+                <div>
+                    <div>
+                        Dictated Content:
+                    </div>
+                    <textarea id="dictated"></textarea>
+                </div>
+                <div>
+                    <div>
+                        Generated Summary
+                    </div>
+                    <textarea id="generated"></textarea>
+                </div>
 
-    <div>
-        <div>
-            Dictated Content:
+            </div>
         </div>
-        <textarea id="dictated"></textarea>
-    </div>
-    <div>
-        <div>
-            Generated Summary
-        </div>
-        <textarea id="generated"></textarea>
-    </div>
 
+    </div>
     <div>
         <button id="record" disabled>Start Recording</button>
-        <button id="play" disabled>Play</button>
-        <button id="download" disabled>Download</button>
     </div>
 
-    <div>
-        <span id="errorMsg"></span>
-    </div>
-
-
-</div>
-
-<!-- include adapter for srcObject shim -->
-<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="js/main.js" async></script>
-<script src="js/ga.js"></script>
+    <!-- include adapter for srcObject shim -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="js/main.js" async></script>
+    <script src="js/ga.js"></script>
 
 </body>
 </html>

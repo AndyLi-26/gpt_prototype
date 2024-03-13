@@ -2,6 +2,11 @@ const fs = require('fs');
 const OpenAI = require("openai");
 const { exec } = require('child_process');
 const openai = new OpenAI();
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function transferAudio(req, res) {
     console.log(req);
     const audioBlob = req.body;
@@ -10,7 +15,7 @@ async function transferAudio(req, res) {
     console.log(blobSize);
 
     // Save audio blob to a file
-    fs.writeFile('recorded_audio.webm', audioBlob, 'binary',(err) => {
+    let response = await fs.promises.writeFile('recorded_audio.webm', audioBlob, 'binary',(err) => {
         if (err) {
             console.error('Error saving audio blob:', err);
             res.status(500).send('Error saving audio blob');
@@ -54,6 +59,8 @@ async function transferAudio(req, res) {
         });
         */
     });
+
+    await sleep(1000);
 
     const transcription = await openai.audio.transcriptions.create({
         file: fs.createReadStream("recorded_audio.webm"),
