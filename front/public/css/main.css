@@ -87,12 +87,16 @@ div#links {
   padding: 0.5em 0 0 0;
 }
 
-h1 {
+.headerdiv{
+  margin: 0 0 0.8em 0;
+  padding: 0 0 1em 0;
   border-bottom: 1px solid #ccc;
+}
+
+.header {
+    display: inline;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  margin: 0 0 0.8em 0;
-  padding: 0 0 0.2em 0;
 }
 
 h2 {
@@ -309,7 +313,8 @@ video:last-of-type {
 }
 
 video#gumVideo {
-  margin: 0 0 0 0;
+  margin: 0 0 1rem 0;
+  padding: 0 0 1rem 0;
 }
 
 .section {
@@ -319,9 +324,13 @@ video#gumVideo {
 
 .right {
     margin-inline: 1.5rem;
-    width: 50%;
+    width: 60%;
 }
 
+.left{
+    margin-top:10%;
+width:40%
+}
 #record {
     display: flex;
     margin:auto;
@@ -331,4 +340,23 @@ video#gumVideo {
     font-size: x-large;
     padding: 1rem;
     border-radius: 0.5rem;
+}
+
+.logo{
+width: 10rem;
+display:inline;
+float: left;
+}
+
+.txt{
+height:38vh;
+}
+#gum{
+margin-bottom:1rem;
+}
+
+
+.label{
+font-weight:bold;
+
 }

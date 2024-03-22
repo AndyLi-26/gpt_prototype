@@ -31,8 +31,11 @@
 <body>
 
     <div id="container">
+        <div class="headerdiv">
+            <h1 class="header" >Gen AI Consultation Summary Demo</h1>
 
-        <h1>Gen AI Consultation Summary Demo</h1>
+        </div>
+
 
         <!--
             <p>For more information see the MediaStream Recording API <a
@@ -41,29 +44,28 @@
         -->
 
         <div style="display: flex;">
-            <div class="section" style="width: 50%">
+            <div class="section left" >
+            <img src="Monash.svg" class="logo" alt="Monash University">
                 <video id="gum" playsinline autoplay muted></video>
+                <button id="record" disabled>Start Recording</button>
             </div>
             <div class="section right">
                 <div>
-                    <div>
+                    <div class="label">
                         Dictated Content:
                     </div>
-                    <textarea id="dictated"></textarea>
+                    <textarea class="txt" id="dictated"></textarea>
                 </div>
                 <div>
-                    <div>
+                    <div class="label">
                         Generated Summary
                     </div>
-                    <textarea id="generated"></textarea>
+                    <textarea class="txt" id="generated"></textarea>
                 </div>
 
             </div>
         </div>
 
-    </div>
-    <div>
-        <button id="record" disabled>Start Recording</button>
     </div>
 
     <!-- include adapter for srcObject shim -->
