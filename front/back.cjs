@@ -8,8 +8,10 @@ function sleep(ms) {
 }
 
 async function transferAudio(req, res) {
-    console.log(req);
+    console.log(req.body);
+    console.log(req.headers);
     const audioBlob = req.body;
+    const trans = req.headers.trans;
     console.log(audioBlob);
     const blobSize = Buffer.byteLength(audioBlob);
     console.log(blobSize);
@@ -62,18 +64,31 @@ async function transferAudio(req, res) {
 
     await sleep(1000);
 
-    const transcription = await openai.audio.transcriptions.create({
-        file: fs.createReadStream("recorded_audio.webm"),
-        model: "whisper-1",
-    });
+    var transcription;
+    if (trans==='true')
+    {
+        console.log('translations');
+        transcription = await openai.audio.translations.create({
+            file: fs.createReadStream("recorded_audio.webm"),
+            model: "whisper-1",
+        });
+    }
+    else
+    {
+        console.log('dictation');
+        transcription = await openai.audio.transcriptions.create({
+            file: fs.createReadStream("recorded_audio.webm"),
+            model: "whisper-1",
+        });
+    }
     console.log(transcription.text);
 
     const completion = await openai.chat.completions.create({
         messages: [
             //{ role: "system", content: "You are a helpful assistant." },
             //{role:"",content:``},
-            {"role": "system", "content":"You are a professional GP doctor, and just finished your consultation with your patient. Now you need to write up a consultation summary to the patient so that they can refer it back when they got home." },
-            {"role": "user", "content": `Please summarize the following consultation into a consultation report with given background information without any sectioned structures, use 'we' as in first person view: \nconversation: ${transcription.text}\n`}
+            {"role": "system", "content":"You are a professional GP doctor, and just finished your consultation with your patient. Now you need to write up a consultation summary in English to the patient so that they can refer it back when they got home." },
+            {"role": "user", "content": `Please summarize the following consultation into a consultation report in english with sub-titled section structures, use 'we' as in first person view: \nconversation: ${transcription.text}\n`}
         ],
         model: "gpt-4-0125-preview",
     });

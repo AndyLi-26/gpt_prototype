@@ -36,6 +36,16 @@ recordButton.addEventListener('click', () => {
     }
 });
 
+
+const transButton = document.querySelector('button#trans');
+transButton.addEventListener('click', () => {
+    if (transButton.innerHTML==="Translation off")
+        transButton.innerHTML="Translation on";
+    else if (transButton.innerHTML==="Translation on")
+        transButton.innerHTML="Translation off";
+});
+
+
 /*
 const playButton = document.querySelector('button#play');
 playButton.addEventListener('click', () => {
@@ -116,6 +126,7 @@ function sendAudio(blob) {
 
     const header = new Headers();
     header.append('Content-Type', 'audio/webm');
+    header.append('trans', transButton.innerHTML==="Translation on");
     //const contentLength = blob.size;
     //header.append('Content-Length', contentLength.toString());
 
